@@ -19,6 +19,72 @@ body {
   display: flex;
 }
 
+.size-input {
+  display: flex;
+  align-items: flex-end;
+}
+
+.range-container {
+  display: flex;
+}
+
+.range-container .input-container {
+  width: 33%;
+}
+
+.button {
+  margin-top: 20px;
+  outline: none;
+  border-radius: 15px;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  background-color: #5c6bc0;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #4a58a3;
+}
+
+.button:active {
+  background-color: #3f4a86;
+}
+
+.input-container input {
+  flex-shrink: 1;
+  margin-right: 15px;
+  background-color: transparent;
+  color: white;
+  min-width: 0px;
+  border-radius: 10px;
+  padding: 10px;
+  outline: none;
+  border: 1px solid rgba(179, 179, 179, 0.329);
+  transition: border 0.3s ease;
+}
+.size-input input:focus {
+  border: 1px solid #929bd1;
+}
+
+.input-container {
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+}
+
+.input-container label {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(173, 173, 173);
+}
+
 .card {
   padding: 25px;
   margin: 20px 0px;
