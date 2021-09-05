@@ -25,19 +25,22 @@
         <div class="range-container">
           <div class="input-container">
             <label for="x1">x<sub>1</sub></label>
-            <input id="x1" />
+            <input id="x1" type="number"/>
           </div>
           <div class="input-container">
             <label for="xu">x<sub>u</sub></label>
-            <input id="xu" />
+            <input id="xu" type="number"/>
           </div>
           <div class="input-container">
-            <label for="error" >Error</label>
+            <label for="error">Error</label>
             <input id="error" type="number" />
           </div>
         </div>
-        <button class="button elevation-1">Calcular</button>
+        <button class="button elevation-1" onclick="solve()">Calcular</button>
       </div>
     </div>
+
+    <script src="js/index.js"></script>
+
   </body>
 </html>
