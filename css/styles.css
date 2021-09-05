@@ -1,0 +1,97 @@
+body {
+  font-family: "Roboto", sans-serif;
+  background-size: 400% 400%;
+}
+
+.container {
+  max-width: 50%;
+  margin: 0px auto;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 25px;
+  border-bottom: 1px solid rgba(209, 209, 209, 0.329);
+  padding-bottom: 20px;
+  font-weight: 500;
+  justify-content: space-between;
+  align-items: flex-end;
+  display: flex;
+}
+
+.card {
+  padding: 25px;
+  margin: 20px 0px;
+  color: white;
+  background-color: rgba(54, 54, 54, 0.774);
+  border-radius: 10px;
+}
+
+#snackbar {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(54, 54, 54, 0.774);
+  padding: 13px 20px;
+  color: rgb(243, 243, 243);
+  border-radius: 20px;
+  min-width: 200px;
+  visibility: hidden;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.3s, fadeout 0.3s 2.5s;
+  animation: fadein 0.3s, fadeout 0.3s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    max-width: 90%;
+  }
+}
