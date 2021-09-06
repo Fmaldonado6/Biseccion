@@ -20,7 +20,6 @@ function solve() {
 
     if (error === null) throw Error("Ingresa el error");
 
-    if(error <= 0) throw Error("El error debe ser mayor a 0")
 
     let absError = error + 1;
     let xr;
@@ -30,8 +29,12 @@ function solve() {
       const fr = evalEquation(equation, xr);
 
       absError = absoluteError(xr, x1);
-      if (f1 * fr > 0) x1 = xr;
+
+      const f1fr = f1 * fr;
+      if (f1fr == 0) break;
+      else if (f1fr > 0) x1 = xr;
       else xu = xr;
+
       console.log(absError, error);
     }
 
