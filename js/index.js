@@ -16,20 +16,23 @@ function solve() {
 
   try {
     if (!equation) throw Error("Ingresa una ecuacion");
-    if (!x1 || !xu) throw Error("Ingresa valores en el rango");
-    if (!error) throw Error("Ingresa el error");
+    if (x1 === null || xu === null) throw Error("Ingresa valores en el rango");
+
+    if (error === null) throw Error("Ingresa el error");
+
+    if(error <= 0) throw Error("El error debe ser mayor a 0")
 
     let absError = error + 1;
     let xr;
-    while (absError >= error) {
+    while (absError > error) {
       xr = (x1 + xu) / 2;
       const f1 = evalEquation(equation, x1);
       const fr = evalEquation(equation, xr);
 
       absError = absoluteError(xr, x1);
-
       if (f1 * fr > 0) x1 = xr;
       else xu = xr;
+      console.log(absError, error);
     }
 
     console.log("Valor aproximado: " + xr, "Error: ", absError);
