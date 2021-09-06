@@ -9,17 +9,37 @@ const adjacentSymbols = new Set([")"]);
 const replace = { "^": "**", e: Math.E };
 
 function solve() {
-  let x1 = x1Input.value;
-  let xu = xuInput.value;
+  let x1 = Number.parseFloat(x1Input.value);
+  let xu = Number.parseFloat(xuInput.value);
+  let error = Number.parseFloat(errorInput.value);
   let equation = equationInput.value;
 
   try {
     if (!equation) throw Error("Ingresa una ecuacion");
     if (!x1 || !xu) throw Error("Ingresa valores en el rango");
-    evalEquation(equation, x1);
-  } catch (error) {
-    showSnackbar(error)
+    if (!error) throw Error("Ingresa el error");
+
+    let absError = error + 1;
+    let xr;
+    while (absError >= error) {
+      xr = (x1 + xu) / 2;
+      const f1 = evalEquation(equation, x1);
+      const fr = evalEquation(equation, xr);
+
+      absError = absoluteError(xr, x1);
+
+      if (f1 * fr > 0) x1 = xr;
+      else xu = xr;
+    }
+
+    console.log("Valor aproximado: " + xr, "Error: ", absError);
+  } catch (e) {
+    showSnackbar(e);
+  }
 }
+
+function absoluteError(x1, x2) {
+  return Math.abs((x2 - x1) / x2) * 100;
 }
 
 function evalEquation(equation, x) {
@@ -41,16 +61,16 @@ function evalEquation(equation, x) {
 
     console.log(formattedEquation);
     console.log(eval(formattedEquation));
+    return eval(formattedEquation);
   } catch (error) {
-      throw new Error("Ecuacion mal formateada")
+    throw new Error("Ecuacion mal formateada");
   }
 }
 
 function showSnackbar(message) {
-    snackbar.classList.add("show");
-    snackbar.innerHTML = message;
-    setTimeout(function () {
-      snackbar.classList.remove("show");
-    }, 2750);
-  }
-  
+  snackbar.classList.add("show");
+  snackbar.innerHTML = message;
+  setTimeout(function () {
+    snackbar.classList.remove("show");
+  }, 2750);
+}
