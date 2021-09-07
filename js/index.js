@@ -23,26 +23,39 @@ function solve() {
     //por eso valida que no sea cero ni positivo el resultado de multiplicar
     if ((evalEquation(equation, x1))*(evalEquation(equation, xu))>=0) throw Error("El intervalo no contiene a la solucion, intenta otro")
     if (error === null) throw Error("Ingresa el error");
+    
+    results.innerHTML = "";
 
-    // const element = document.createElement("p");
-    // element.innerHTML = `x<sub>1</sub> = ${x1}, x<sub>u</sub> = ${
-    //   xu }`;
-
-    results.appendChild(element);
     let absError = error + 1;
     let xr;
+    let lastAprox = null;
     while (absError > error) {
+      
       xr = (x1 + xu) / 2;
+      
+      if(lastAprox)
+      absError = absoluteError(xr, lastAprox);
+      
       const f1 = evalEquation(equation, x1);
       const fr = evalEquation(equation, xr);
-
-      absError = absoluteError(xr, x1);
+      const fu = evalEquation(equation,xu);
 
       const f1fr = f1 * fr;
+      const element = document.createElement("p");
+      element.innerHTML = `X<sub>1</sub> = ${x1}, X<sub>u</sub> = ${
+       xu }<br> X<sub>r</sub> = (${x1} + ${xu}) / 2 <br>
+       X<sub>r</sub> = ${xr}<br>
+       F(${x1})*F(${xr})= ${f1} * ${fu} 
+       = ${f1fr} ${f1fr > 0 ? " >0<br> X<sub>1</sub> = X<sub>r</sub><br>" : " <0<br>X<sub>u</sub> = X<sub>r</sub><br>"}<br>
+       ${lastAprox ? `E<sub>a</sub> = | ${xr} - ${lastAprox} / ${xr} | (100%) = ${absError}<br>` : "<br>"}`;
+  
+      results.appendChild(element);
       if (f1fr == 0) break;
       else if (f1fr > 0) x1 = xr;
       else xu = xr;
 
+      
+      lastAprox = xr;
       console.log(absError, error);
     }
 
