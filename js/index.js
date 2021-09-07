@@ -4,7 +4,7 @@ const xuInput = document.getElementById("xu");
 const errorInput = document.getElementById("error");
 
 const variable = "x";
-const symbols = new Set(["+", "-", "*", "/"]);
+const symbols = new Set(["+", "-", "*", "/","^"]);
 const adjacentSymbols = new Set([")"]);
 const replace = { "^": "**", e: Math.E };
 
@@ -56,13 +56,14 @@ function evalEquation(equation, x) {
     let previous;
 
     for (let char of equation) {
-      if (replace[char]) char = replace[char];
-      if ((!firstChar || adjacentSymbols.has(previous)) && char == variable)
+      let addChar = char
+      if (replace[char]) addChar = replace[char];
+      if ((!firstChar || adjacentSymbols.has(previous)) && addChar == variable)
         formattedEquation += "*" + x;
-      else if (char == variable) formattedEquation += x;
-      else formattedEquation += char;
+      else if (addChar == variable) formattedEquation += x;
+      else formattedEquation += addChar;
       firstChar = symbols.has(char);
-      previous = char;
+      previous = addChar;
     }
 
     console.log(formattedEquation);
