@@ -1,6 +1,8 @@
 const equationInput = document.getElementById("equation");
 const x1Input = document.getElementById("x1");
 const xuInput = document.getElementById("xu");
+const resultCard = document.getElementById("result-card");
+const results = document.getElementById("results");
 const errorInput = document.getElementById("error");
 
 const variable = "x";
@@ -17,10 +19,16 @@ function solve() {
   try {
     if (!equation) throw Error("Ingresa una ecuacion");
     if (x1 === null || xu === null) throw Error("Ingresa valores en el rango");
-
+    //añadi validar que la sol esté dentro del intervalo dado, cuando uno es positivo y uno negativo, hay solucion dentro
+    //por eso valida que no sea cero ni positivo el resultado de multiplicar
+    if ((evalEquation(equation, x1))*(evalEquation(equation, xu))>=0) throw Error("El intervalo no contiene a la solucion, intenta otro")
     if (error === null) throw Error("Ingresa el error");
 
+    // const element = document.createElement("p");
+    // element.innerHTML = `x<sub>1</sub> = ${x1}, x<sub>u</sub> = ${
+    //   xu }`;
 
+    results.appendChild(element);
     let absError = error + 1;
     let xr;
     while (absError > error) {
