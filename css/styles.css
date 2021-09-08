@@ -112,6 +112,51 @@ body {
   animation: fadein 0.3s, fadeout 0.3s 2.5s;
 }
 
+.variables span {
+  margin-right: 20px;
+}
+
+.xr-container {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.division {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 20px;
+}
+
+.denominator {
+  border-bottom: 1px solid grey;
+}
+
+.fx1fr-container {
+  margin-top: 20px;
+  display: flex;
+}
+
+.error-container {
+  margin: 20px 0px;
+  display: flex;
+  align-items: center;
+}
+
+.error {
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px 5px;
+}
+.span-margin {
+  margin-right: 10px;
+}
+
 @-webkit-keyframes fadein {
   from {
     bottom: 0;

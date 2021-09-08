@@ -25,11 +25,11 @@
         <div class="range-container">
           <div class="input-container">
             <label for="x1">x<sub>1</sub></label>
-            <input id="x1" type="number"/>
+            <input id="x1" type="number" />
           </div>
           <div class="input-container">
             <label for="xu">x<sub>u</sub></label>
-            <input id="xu" type="number"/>
+            <input id="xu" type="number" />
           </div>
           <div class="input-container">
             <label for="error">Error</label>
@@ -38,24 +38,69 @@
         </div>
         <button class="button elevation-1" onclick="solve()">Calcular</button>
       </div>
-      <div class="card elevation-2" id="steps-card">
-        <div class="title">
-          <span>Procedimiento</span>
-        </div>
-        <div id="steps"></div>
-      </div>
       <div class="card elevation-2" id="result-card">
         <div class="title">
           <span>Resultado</span>
         </div>
         <div id="results"></div>
       </div>
+      <div id="steps">
+        <div class="card elevation-2" id="steps-card" style="display: none">
+          <div class="title">
+            <span id="iteration-num">Iteración 1</span>
+          </div>
+          <div class="variables">
+            <span>x<sub>1</sub> = <span class="x1"></span></span>
+            <span>x<sub>u</sub> = <span class="xu"></span></span>
+          </div>
+          <div class="xr-container">
+            <span>x<sub>r</sub> = </span>
+            <div class="division">
+              <div class="denominator">
+                <span class="x1">2</span>
+                <span>+</span>
+                <span class="xu">2</span>
+              </div>
+              <span>2</span>
+            </div>
+            <span> = </span>
+            <span class="xr"> = </span>
+          </div>
+          <div class="fx1fr-container">
+            <span class="span-margin">f(x<sub>1</sub>) </span>
+            <span class="span-margin">f(x<sub>r</sub>) </span>
+            <span class="span-margin">=</span>
+            <span class="span-margin">f(<span class="x1">23</span>) </span>
+            <span class="span-margin">f(<span class="xr">40</span>) </span>
+            <span class="span-margin" id="fx1fxr-result"> > 0</span>
+          </div>
+          <div class="next-calc-container">
+            <div class="error-container">
+              <span>E<sub>a</sub> =</span>
+              <div class="division">
+                <div class="error">
+                  <div class="denominator">
+                    <span class="xr">2</span>
+                    <span>-</span>
+                    <span class="xr-prev">2</span>
+                  </div>
+                  <span class="xr">2</span>
+                </div>
+              </div>
+              <span class="span-margin"> =</span>
+              <span class="span-margin" id="abs-error"> 0</span>
+            </div>
+            <div class="variables">
+              <span>x<sub>1</sub> = <span id="x1-next"></span></span>
+              <span>x<sub>u</sub> = <span id="xu-next"></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="snackbar">Some text some message..</div>
 
-
     <script src="js/index.js"></script>
-
   </body>
 </html>
