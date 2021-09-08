@@ -157,6 +157,38 @@ body {
   margin-right: 10px;
 }
 
+#result-card {
+  visibility: hidden;
+}
+
+#result-card.show {
+  visibility: visible;
+  -webkit-animation: cardFadeIn 0.3s forwards;
+  animation: cardFadeIn 0.3s forwards;
+}
+
+#result-card.hidden {
+  visibility: visible;
+  -webkit-animation: cardFadeOut 0.3s forwards;
+  animation: cardFadeOut 0.3s forwards;
+}
+
+#steps-card {
+  visibility: hidden;
+}
+
+#steps-card.show {
+  visibility: visible;
+  -webkit-animation: cardFadeIn 0.3s forwards;
+  animation: cardFadeIn 0.3s forwards;
+}
+
+#steps-card.hidden {
+  visibility: visible;
+  -webkit-animation: cardFadeOut 0.3s forwards;
+  animation: cardFadeOut 0.3s forwards;
+}
+
 @-webkit-keyframes fadein {
   from {
     bottom: 0;
