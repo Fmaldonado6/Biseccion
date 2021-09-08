@@ -23,6 +23,11 @@ async function solve() {
 
     steps.innerHTML = "";
     results.innerHTML = "";
+    if (resultCard.classList.contains("show")) {
+      hideResultCard();
+      await delay(300);
+    }
+
     if (!equation) throw Error("Ingresa una ecuacion");
     if (x1 === null || xu === null) throw Error("Ingresa valores en el rango");
 
@@ -38,10 +43,6 @@ async function solve() {
     let xr;
     let lastAprox = 0;
     let i = 0;
-    if (resultCard.classList.contains("show")) {
-      hideResultCard();
-      await delay(300);
-    }
 
     while (absError > error) {
       xr = (x1 + xu) / 2;
@@ -64,7 +65,6 @@ async function solve() {
       lastAprox = xr;
 
       if (i > 100) break;
-
     }
 
     const aproxValue = document.createElement("p");
