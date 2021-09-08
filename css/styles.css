@@ -173,10 +173,6 @@ body {
   animation: cardFadeOut 0.3s forwards;
 }
 
-#steps-card {
-  visibility: hidden;
-}
-
 #steps-card.show {
   visibility: visible;
   -webkit-animation: cardFadeIn 0.3s forwards;
@@ -230,6 +226,46 @@ body {
   to {
     bottom: 0;
     opacity: 0;
+  }
+}
+
+@-webkit-keyframes cardFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes cardFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes cardFadeIn {
+  from {
+    top: 50px;
+    opacity: 0;
+  }
+  to {
+    top: 0px;
+    opacity: 1;
+  }
+}
+
+@keyframes cardFadeIn {
+  from {
+    bottom: -50px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0px;
+    opacity: 1;
   }
 }
 

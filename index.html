@@ -38,12 +38,13 @@
         </div>
         <button class="button elevation-1" onclick="solve()">Calcular</button>
       </div>
-      <div class="card elevation-2" id="result-card">
+      <div class="card elevation-2" id="result-card" >
         <div class="title">
-          <span>Procedimiento</span>
+          <span>Resultado</span>
         </div>
-        <div id="steps"></div>
+        <div id="results"></div>
       </div>
+ 
       <div id="steps">
         <div class="card elevation-2" id="steps-card" style="display: none">
           <div class="title">
@@ -74,7 +75,7 @@
             <span class="span-margin">f(<span class="xr">40</span>) </span>
             <span class="span-margin" id="fx1fxr-result"> > 0</span>
           </div>
-          <div class="next-calc-container">
+          <div id="next-calc-container">
             <div class="error-container">
               <span>E<sub>a</sub> =</span>
               <div class="division">

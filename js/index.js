@@ -14,14 +14,13 @@ const variable = "x";
 const symbols = new Set(["+", "-", "*", "/", "^", "("]);
 const replace = { "^": "**", e: Math.E };
 
-function solve() {
+async function solve() {
   let x1 = Number.parseFloat(x1Input.value);
   let xu = Number.parseFloat(xuInput.value);
   let error = Number.parseFloat(errorInput.value);
   let equation = equationInput.value;
 
   try {
-    hideResultCard();
     steps.innerHTML = "";
     results.innerHTML = "";
     if (!equation) throw Error("Ingresa una ecuacion");
@@ -31,12 +30,16 @@ function solve() {
     if (evalEquation(equation, x1) * evalEquation(equation, xu) >= 0)
       throw Error("El intervalo no contiene a la solucion, intenta otro");
     if (error === null) throw Error("Ingresa el error");
-    
 
     let absError = error + 1;
     let xr;
     let lastAprox = 0;
     let i = 0;
+    if (resultCard.classList.contains("show")) {
+      hideResultCard();
+      await delay(300);
+    }
+
     while (absError > error) {
       xr = (x1 + xu) / 2;
 
@@ -56,13 +59,14 @@ function solve() {
       else xu = xr;
 
       lastAprox = xr;
-      console.log(absError, error);
     }
 
-    console.log("Valor aproximado: " + xr, "Error: ", absError);
-    const element = document.createElement("p");
-    element.innerHTML = `Valor aproximado: ${xr}, Error aproximado: ${absError.toFixed(4)}%`;
-    results.appendChild(element);
+    const aproxValue = document.createElement("p");
+    const aproxError = document.createElement("p");
+    aproxValue.innerHTML = `Valor aproximado: ${xr}`;
+    aproxError.innerHTML = `Error aproximado: ${absError.toFixed(4)}%`;
+    results.appendChild(aproxValue);
+    results.appendChild(aproxError);
 
     showResultCard();
   } catch (e) {
@@ -79,6 +83,7 @@ function addStep(x1, xu, xr, f1fr, lastAprox, absError, i) {
   f1fr = f1fr % 1 == 0 ? f1fr : f1fr.toFixed(4);
 
   const duplicateNode = stepsCard.cloneNode(true);
+  duplicateNode.classList.add("show");
   duplicateNode.querySelector("#iteration-num").innerHTML = "Iteración " + i;
   duplicateNode.querySelectorAll(".x1").forEach((e) => (e.innerHTML = x1));
   duplicateNode.querySelectorAll(".xu").forEach((e) => (e.innerHTML = xu));
@@ -104,17 +109,12 @@ function showResultCard() {
   if (resultCard.classList.contains("hidden"))
     resultCard.classList.remove("hidden");
   resultCard.classList.add("show");
-  if (stepsCard.classList.contains("hidden"))
-    stepsCard.classList.remove("hidden");
-  stepsCard.classList.add("show");
 }
 
 function hideResultCard() {
   if (resultCard.classList.contains("show"))
     resultCard.classList.remove("show");
   resultCard.classList.add("hidden");
-  if (stepsCard.classList.contains("show")) stepsCard.classList.remove("show");
-  stepsCard.classList.add("hidden");
 }
 
 function evalEquation(equation, x) {
@@ -157,4 +157,12 @@ function showSnackbar(message) {
   setTimeout(function () {
     snackbar.classList.remove("show");
   }, 2750);
+}
+
+function delay(delayInms) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(2);
+    }, delayInms);
+  });
 }
