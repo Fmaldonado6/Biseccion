@@ -140,9 +140,12 @@ body {
 }
 
 .error-container {
-  margin: 20px 0px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
+}
+.last{
+  margin-top: 20px;
 }
 
 .error {

@@ -15,21 +15,24 @@ const symbols = new Set(["+", "-", "*", "/", "^", "("]);
 const replace = { "^": "**", e: Math.E };
 
 async function solve() {
-  let x1 = Number.parseFloat(x1Input.value);
-  let xu = Number.parseFloat(xuInput.value);
-  let error = Number.parseFloat(errorInput.value);
-  let equation = equationInput.value;
-
   try {
+    let x1 = Number.parseFloat(x1Input.value);
+    let xu = Number.parseFloat(xuInput.value);
+    let error = Number.parseFloat(errorInput.value);
+    let equation = equationInput.value;
+
     steps.innerHTML = "";
     results.innerHTML = "";
     if (!equation) throw Error("Ingresa una ecuacion");
     if (x1 === null || xu === null) throw Error("Ingresa valores en el rango");
+
+    if (Number.isNaN(x1) || Number.isNaN(xu))
+      throw Error("Ingresa valores válidos en el rango");
+    if (error === null) throw Error("Ingresa el error");
     //añadi validar que la sol esté dentro del intervalo dado, cuando uno es positivo y uno negativo, hay solucion dentro
     //por eso valida que no sea cero ni positivo el resultado de multiplicar
     if (evalEquation(equation, x1) * evalEquation(equation, xu) >= 0)
       throw Error("El intervalo no contiene a la solucion, intenta otro");
-    if (error === null) throw Error("Ingresa el error");
 
     let absError = error + 1;
     let xr;
@@ -43,7 +46,7 @@ async function solve() {
     while (absError > error) {
       xr = (x1 + xu) / 2;
 
-      absError = absoluteError(lastAprox, xr);
+      if (i > 1) absError = absoluteError(lastAprox, xr);
 
       const f1 = evalEquation(equation, x1);
       const fr = evalEquation(equation, xr);
@@ -59,6 +62,9 @@ async function solve() {
       else xu = xr;
 
       lastAprox = xr;
+
+      if (i > 100) break;
+
     }
 
     const aproxValue = document.createElement("p");
@@ -75,27 +81,38 @@ async function solve() {
 }
 
 function addStep(x1, xu, xr, f1fr, lastAprox, absError, i) {
-  x1 = x1 % 1 == 0 ? x1 : x1.toFixed(4);
-  xu = xu % 1 == 0 ? xu : xu.toFixed(4);
-  xr = xr % 1 == 0 ? xr : xr.toFixed(4);
-  lastAprox = lastAprox % 1 == 0 ? lastAprox : lastAprox?.toFixed(4);
-  absError = absError % 1 == 0 ? absError : absError.toFixed(4);
-  f1fr = f1fr % 1 == 0 ? f1fr : f1fr.toFixed(4);
-
+  const x1Format = x1 % 1 == 0 ? x1 : x1.toFixed(4);
+  const xuFormat = xu % 1 == 0 ? xu : xu.toFixed(4);
+  const xrFormat = xr % 1 == 0 ? xr : xr.toFixed(4);
+  const lastAproxFormat =
+    lastAprox % 1 == 0 ? lastAprox : lastAprox?.toFixed(4);
+  const f1frFormat = f1fr % 1 == 0 ? f1fr : f1fr.toFixed(4);
+  const absErrorFormat = absError % 1 == 0 ? absError : absError.toFixed(4);
   const duplicateNode = stepsCard.cloneNode(true);
   duplicateNode.classList.add("show");
   duplicateNode.querySelector("#iteration-num").innerHTML = "Iteración " + i;
-  duplicateNode.querySelectorAll(".x1").forEach((e) => (e.innerHTML = x1));
-  duplicateNode.querySelectorAll(".xu").forEach((e) => (e.innerHTML = xu));
-  duplicateNode.querySelectorAll(".xr").forEach((e) => (e.innerHTML = xr));
+  duplicateNode
+    .querySelectorAll(".x1")
+    .forEach((e) => (e.innerHTML = x1Format));
+  duplicateNode
+    .querySelectorAll(".xu")
+    .forEach((e) => (e.innerHTML = xuFormat));
+  duplicateNode
+    .querySelectorAll(".xr")
+    .forEach((e) => (e.innerHTML = xrFormat));
   duplicateNode
     .querySelectorAll(".xr-prev")
-    .forEach((e) => (e.innerHTML = lastAprox));
+    .forEach((e) => (e.innerHTML = lastAproxFormat));
   duplicateNode.querySelector("#fx1fxr-result").innerHTML =
-    f1fr > 0 ? "> 0" : "< 0";
-  duplicateNode.querySelector("#abs-error").innerHTML = absError;
-  duplicateNode.querySelector("#x1-next").innerHTML = f1fr > 0 ? xr : x1;
-  duplicateNode.querySelector("#xu-next").innerHTML = f1fr > 0 ? xu : xr;
+    f1frFormat > 0 ? "> 0" : "< 0";
+  duplicateNode.querySelector("#abs-error").innerHTML = absErrorFormat;
+  duplicateNode.querySelector("#x1-next").innerHTML =
+    f1fr > 0 ? xrFormat : x1Format;
+  duplicateNode.querySelector("#xu-next").innerHTML =
+    f1fr > 0 ? xuFormat : xrFormat;
+
+  if (i == 1)
+    duplicateNode.querySelector(".error-container").style.display = "none";
 
   duplicateNode.style.display = "block";
   stepsContainer.appendChild(duplicateNode);
