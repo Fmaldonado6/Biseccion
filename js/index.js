@@ -19,14 +19,16 @@ function solve() {
   let equation = equationInput.value;
 
   try {
+    hideResultCard();
+    steps.innerHTML = "";
+    results.innerHTML = "";
     if (!equation) throw Error("Ingresa una ecuacion");
     if (x1 === null || xu === null) throw Error("Ingresa valores en el rango");
     //añadi validar que la sol esté dentro del intervalo dado, cuando uno es positivo y uno negativo, hay solucion dentro
     //por eso valida que no sea cero ni positivo el resultado de multiplicar
     if ((evalEquation(equation, x1))*(evalEquation(equation, xu))>=0) throw Error("El intervalo no contiene a la solucion, intenta otro")
     if (error === null) throw Error("Ingresa el error");
-    steps.innerHTML = "";
-    results.innerHTML = "";
+    
 
     let absError = error + 1;
     let xr;
@@ -61,7 +63,7 @@ function solve() {
 
     console.log("Valor aproximado: " + xr, "Error: ", absError);
     const element = document.createElement("p");
-    element.innerHTML = `Valor aproximado: ${xr}, Error aproximado: ${absError.toFixed(4)}`;
+    element.innerHTML = `Valor aproximado: ${xr}, Error aproximado: ${absError.toFixed(4)}%`;
     results.appendChild(element);
     
     showResultCard();
