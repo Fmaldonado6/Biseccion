@@ -166,8 +166,8 @@ function evalEquation(equation, x) {
     }
 
     formattedEquation += ")";
-    console.log(formattedEquation);
-    console.log(eval(formattedEquation));
+    // console.log(formattedEquation);
+    // console.log(eval(formattedEquation));
     return eval(formattedEquation);
   } catch (error) {
     throw new Error("Ecuacion mal formateada");
