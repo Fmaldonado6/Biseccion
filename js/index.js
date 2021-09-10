@@ -11,7 +11,7 @@ const results = document.getElementById("results");
 const errorInput = document.getElementById("error");
 
 const variable = "x";
-const symbols = new Set(["+", "-", "*", "/", "^", "("]);
+const symbols = new Set(["+", "-", "*", "/", "("]);
 const replace = { "^": "**", e: Math.E };
 
 async function solve() {
@@ -139,11 +139,10 @@ function evalEquation(equation, x) {
     let firstChar = true;
     let isNegative;
     let formattedEquation = "(";
-
     for (let char of equation) {
       let addChar = char;
 
-      const xValue = isNegative ? "(" + x * -1 + ")" : "(" + x + ")";
+      const xValue = isNegative ? "(-1)*(" + x + ")" : "(" + x + ")";
 
       if (replace[char]) addChar = replace[char];
 
@@ -153,15 +152,21 @@ function evalEquation(equation, x) {
       } else if (addChar == variable) {
         isNegative = false;
         formattedEquation += xValue;
-      } else if (firstChar && addChar == "-") isNegative = true;
-      else if (!firstChar && symbols.has(char))
+      } else if (firstChar && addChar == "-") {
+        isNegative = true;
+      } else if (!firstChar && symbols.has(char)) {
         formattedEquation += ")" + addChar + "(";
-      else formattedEquation += addChar;
+      } else if (isNegative && char != variable) {
+        isNegative = false;
+        formattedEquation += "-" + addChar;
+      } else formattedEquation += addChar;
 
       firstChar = symbols.has(char);
     }
 
     formattedEquation += ")";
+    console.log(formattedEquation);
+    console.log(eval(formattedEquation));
     return eval(formattedEquation);
   } catch (error) {
     throw new Error("Ecuacion mal formateada");
